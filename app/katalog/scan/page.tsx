@@ -10,6 +10,7 @@ import type { Product, VisionSearchResult } from "@/lib/types";
 
 type SimilarProduct = Product & { similarity: number };
 type FreeResult = { matches: SimilarProduct[] } | { error: string };
+// Dipakai lagi kalau fitur identifikasi berbayar diaktifkan.
 type PaidResult = { vision: VisionSearchResult; matches: Product[] } | { error: string };
 
 function fileToBase64(file: File): Promise<{ imageBase64: string; mediaType: string }> {
@@ -29,15 +30,17 @@ export default function ScanPage() {
   const [preview, setPreview] = useState<string | null>(null);
   const [imageData, setImageData] = useState<{ imageBase64: string; mediaType: string } | null>(null);
   const [loadingFree, setLoadingFree] = useState(false);
-  const [loadingPaid, setLoadingPaid] = useState(false);
   const [freeResult, setFreeResult] = useState<FreeResult | null>(null);
-  const [paidResult, setPaidResult] = useState<PaidResult | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // --- Fitur identifikasi berbayar (Anthropic API) — non-aktif dulu ---
+  // const [loadingPaid, setLoadingPaid] = useState(false);
+  // const [paidResult, setPaidResult] = useState<PaidResult | null>(null);
 
   async function handleFile(file: File) {
     setLoadingFree(true);
     setFreeResult(null);
-    setPaidResult(null);
+    // setPaidResult(null);
     setPreview(URL.createObjectURL(file));
 
     try {
@@ -57,24 +60,25 @@ export default function ScanPage() {
     }
   }
 
-  async function handlePaidIdentify() {
-    if (!imageData) return;
-    setLoadingPaid(true);
-    setPaidResult(null);
-    try {
-      const res = await fetch("/api/vision-search", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(imageData)
-      });
-      const json: PaidResult = await res.json();
-      setPaidResult(json);
-    } catch (err) {
-      setPaidResult({ error: err instanceof Error ? err.message : "Terjadi kesalahan tak terduga." });
-    } finally {
-      setLoadingPaid(false);
-    }
-  }
+  // --- Fitur identifikasi berbayar (Anthropic API) — non-aktif dulu ---
+  // async function handlePaidIdentify() {
+  //   if (!imageData) return;
+  //   setLoadingPaid(true);
+  //   setPaidResult(null);
+  //   try {
+  //     const res = await fetch("/api/vision-search", {
+  //       method: "POST",
+  //       headers: { "content-type": "application/json" },
+  //       body: JSON.stringify(imageData)
+  //     });
+  //     const json: PaidResult = await res.json();
+  //     setPaidResult(json);
+  //   } catch (err) {
+  //     setPaidResult({ error: err instanceof Error ? err.message : "Terjadi kesalahan tak terduga." });
+  //   } finally {
+  //     setLoadingPaid(false);
+  //   }
+  // }
 
   return (
     <>
@@ -157,6 +161,12 @@ export default function ScanPage() {
               </p>
             )}
 
+            <p className="mt-8 text-xs text-washiDim">
+              Pencarian di atas cuma membandingkan bentuk &amp; warna foto, belum tentu tau nama animenya kalau
+              belum ada barang mirip di katalog kami.
+            </p>
+
+            {/* --- Fitur identifikasi berbayar (Anthropic API) — non-aktif dulu ---
             <div className="mt-8 rounded-sm border border-gold/30 bg-shoji p-6">
               <p className="text-sm text-washi">
                 Pencarian di atas cuma membandingkan bentuk &amp; warna foto, belum tentu tau nama animenya kalau
@@ -170,9 +180,11 @@ export default function ScanPage() {
                 {loadingPaid ? "Mengidentifikasi..." : "Coba identifikasi lebih akurat (berbayar tipis)"}
               </button>
             </div>
+            --- */}
           </div>
         )}
 
+        {/* --- Fitur identifikasi berbayar (Anthropic API) — non-aktif dulu ---
         {paidResult && "error" in paidResult && (
           <p className="mt-4 rounded-sm border border-vermilion/40 bg-vermilion/10 p-4 text-sm text-washi">
             {paidResult.error}
@@ -198,6 +210,7 @@ export default function ScanPage() {
             )}
           </div>
         )}
+        --- */}
       </main>
       <Footer />
     </>
