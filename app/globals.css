@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #0b0b0d;
+  background-image:
+    radial-gradient(ellipse 70% 50% at 15% -10%, rgba(200, 54, 42, 0.16), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 100% 10%, rgba(201, 161, 90, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(200, 54, 42, 0.08), transparent 60%);
+  background-attachment: fixed;
+  color: #ede7dd;
+}
+
+::selection {
+  background: #c8362a;
+  color: #ede7dd;
+}
+
+.washi-grain {
+  background-image: radial-gradient(circle at 1px 1px, rgba(237, 231, 221, 0.05) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+
+.hairline {
+  background: linear-gradient(to right, transparent, rgba(201, 161, 90, 0.5), transparent);
+}
+
+.hairline-v {
+  background: linear-gradient(to bottom, transparent, rgba(201, 161, 90, 0.4), transparent);
+}
+
+/* Hanko seal signature mark */
+.hanko {
+  border: 2.5px solid #c8362a;
+  color: #c8362a;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px rgba(200, 54, 42, 0.35);
+}
+
+.hanko-crack::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 8px;
+  background:
+    linear-gradient(115deg, transparent 46%, rgba(11,11,13,0.9) 47%, transparent 48%),
+    linear-gradient(20deg, transparent 70%, rgba(11,11,13,0.85) 71%, transparent 72%);
+  pointer-events: none;
+}
+
+/* Blob cahaya lembut buat dekorasi, dipakai sebagai <div> absolute + blur */
+.glow-vermilion {
+  background: radial-gradient(circle, rgba(200, 54, 42, 0.35), transparent 70%);
+  filter: blur(60px);
+}
+.glow-gold {
+  background: radial-gradient(circle, rgba(201, 161, 90, 0.28), transparent 70%);
+  filter: blur(70px);
+}
+
+/* Tekstur garis diagonal halus, dipakai buat ngisi area yang polos */
+.pattern-diagonal {
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(201, 161, 90, 0.05) 0,
+    rgba(201, 161, 90, 0.05) 1px,
+    transparent 1px,
+    transparent 14px
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #c9a15a;
+  outline-offset: 3px;
+}
