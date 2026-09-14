@@ -5,14 +5,15 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        ink: "#0B0B0D",
-        shoji: "#16151A",
-        shoji2: "#1D1B22",
-        vermilion: "#C8362A",
-        vermilionDark: "#8E241C",
-        gold: "#C9A15A",
-        washi: "#EDE7DD",
-        washiDim: "#B9B3A6"
+        // Tema "sakura cerah": bg terang, teks gelap, aksen pink mekar + gold hangat.
+        ink: "#FFF5F8",
+        shoji: "#FFE3ED",
+        shoji2: "#FFD3E3",
+        vermilion: "#E0559B",
+        vermilionDark: "#B93A7C",
+        gold: "#B8863A",
+        washi: "#3D1B2E",
+        washiDim: "#8C6478"
       },
       fontFamily: {
         display: ["var(--font-display)", "serif"],

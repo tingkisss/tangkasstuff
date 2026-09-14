@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { computeImageEmbeddingCLIP, cosineSimilarity } from "@/lib/clip";
+import { computeImageEmbeddingDINO, cosineSimilarity } from "@/lib/dino";
 import type { Product } from "@/lib/types";
 
 export const runtime = "nodejs";
-// Model CLIP-nya lumayan berat dihitung, kasih waktu lebih buat cold start.
+// Model DINOv2-nya lumayan berat dihitung, kasih waktu lebih buat cold start.
 export const maxDuration = 60;
 
 // Di bawah skor ini, kita anggap "kayaknya bukan barang yang sama" dan gak ditampilkan.
-const SIMILARITY_THRESHOLD = 0.75;
+const SIMILARITY_THRESHOLD = 0.85;
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
   try {
     const buffer = Buffer.from(imageBase64, "base64");
     const blob = new Blob([buffer], { type: mediaType });
-    queryEmbedding = await computeImageEmbeddingCLIP(blob);
+    queryEmbedding = await computeImageEmbeddingDINO(blob);
   } catch (err) {
-    console.error("CLIP embedding error:", err);
+    console.error("DINOv2 embedding error:", err);
     return NextResponse.json(
       { error: "Gagal memproses foto. Coba lagi dengan foto lain, atau format JPG/PNG." },
       { status: 500 }

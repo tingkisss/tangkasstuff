@@ -1,13 +1,13 @@
 // Jalankan dengan: npm run embed:catalog
 //
-// Menghitung ulang embedding CLIP (lihat lib/clip.ts dan
+// Menghitung ulang embedding DINOv2 (lihat lib/dino.ts dan
 // docs/METODOLOGI-PENCARIAN-FOTO.md untuk penjelasan lengkap algoritmanya)
 // buat produk lama yang belum punya, misalnya produk yang ditambah manual
 // lewat SQL, atau sebelum fitur ini ada.
 import { Pool } from "pg";
-import { AutoProcessor, CLIPVisionModelWithProjection, RawImage } from "@xenova/transformers";
+import { AutoProcessor, AutoModel, RawImage } from "@xenova/transformers";
 
-const MODEL_ID = "Xenova/clip-vit-base-patch32";
+const MODEL_ID = "Xenova/dinov2-base";
 
 async function main() {
   const connectionString = process.env.DATABASE_URL;
@@ -38,17 +38,19 @@ async function main() {
   }
 
   console.log(`Memproses ${products.length} produk yang belum punya embedding...`);
-  console.log("(Pertama kali jalan, model CLIP ~150MB akan diunduh dulu — mohon tunggu.)");
+  console.log("(Pertama kali jalan, model DINOv2 akan diunduh dulu — mohon tunggu.)");
 
   const processor = await AutoProcessor.from_pretrained(MODEL_ID);
-  const model = await CLIPVisionModelWithProjection.from_pretrained(MODEL_ID, { quantized: true });
+  const model = await AutoModel.from_pretrained(MODEL_ID, { quantized: true });
 
   for (const product of products) {
     try {
       const image = await RawImage.read(product.image_url);
       const inputs = await processor(image);
-      const { image_embeds } = await model(inputs);
-      const embedding = Array.from(image_embeds.data);
+      const { last_hidden_state } = await model(inputs);
+      // Ambil token [CLS] (elemen pertama di dimensi sequence) sebagai embedding gambar.
+      const hiddenSize = last_hidden_state.dims[last_hidden_state.dims.length - 1];
+      const embedding = Array.from(last_hidden_state.data).slice(0, hiddenSize);
 
       await client.query("update products set embedding = $1::jsonb where id = $2", [
         JSON.stringify(embedding),

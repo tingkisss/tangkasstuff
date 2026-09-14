@@ -9,7 +9,7 @@ export type Product = {
   shopee_url: string | null;
   stock_status: "ready" | "preorder" | "habis";
   created_at: string;
-  /** Vektor ciri visual (CLIP), dipakai buat pencarian foto gratis. Internal saja. */
+  /** Vektor ciri visual (DINOv2), dipakai buat pencarian foto gratis. Internal saja. */
   embedding?: number[] | null;
 };
 

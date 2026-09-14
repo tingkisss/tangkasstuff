@@ -11,7 +11,7 @@ export default function ProductCard({ product }: { product: Product }) {
   const outOfStock = product.stock_status === "habis";
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-sm border border-white/10 bg-shoji">
+    <div className="group relative flex flex-col overflow-hidden rounded-sm border border-vermilion/15 bg-shoji">
       <div className="relative aspect-square w-full overflow-hidden bg-shoji2">
         <Image
           src={product.image_url}
@@ -22,7 +22,7 @@ export default function ProductCard({ product }: { product: Product }) {
         />
         <span
           className={`absolute left-2 top-2 rounded-sm px-2 py-0.5 font-mono text-[10px] uppercase tracking-widest ${
-            outOfStock ? "bg-black/60 text-washiDim" : "bg-vermilion/90 text-washi"
+            outOfStock ? "bg-black/60 text-shoji" : "bg-vermilion/90 text-washi"
           }`}
         >
           {stockLabel[product.stock_status]}
@@ -43,7 +43,7 @@ export default function ProductCard({ product }: { product: Product }) {
           aria-disabled={outOfStock || !product.shopee_url}
           className={`focus-ring mt-3 inline-flex items-center justify-center rounded-sm px-4 py-2 font-mono text-xs uppercase tracking-widest transition-colors ${
             outOfStock || !product.shopee_url
-              ? "cursor-not-allowed border border-white/10 text-washiDim/50"
+              ? "cursor-not-allowed border border-vermilion/15 text-washiDim/50"
               : "bg-vermilion text-washi hover:bg-vermilionDark"
           }`}
         >

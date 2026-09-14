@@ -59,14 +59,14 @@ export default function AdminPage() {
           <BackLink />
           <h1 className="font-display text-2xl text-washi">Masuk Admin</h1>
           <p className="mt-2 text-sm text-washiDim">
-            Masukkan token admin (nilai ADMIN_API_TOKEN di .env.local kamu).
+            Masukkan token admin
           </p>
           <input
             type="password"
             value={token}
             onChange={(e) => setToken(e.target.value)}
             placeholder="Token admin"
-            className="focus-ring mt-4 w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+            className="focus-ring mt-4 w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
           />
           <button
             onClick={() => setUnlocked(true)}
@@ -95,7 +95,7 @@ export default function AdminPage() {
               required
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
-              className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+              className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
             />
           </Field>
           <Field label="Judul anime/game">
@@ -103,7 +103,7 @@ export default function AdminPage() {
               required
               value={form.anime}
               onChange={(e) => setForm({ ...form, anime: e.target.value })}
-              className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+              className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
             />
           </Field>
           <Field label="Deskripsi">
@@ -111,7 +111,7 @@ export default function AdminPage() {
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
               rows={3}
-              className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+              className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
             />
           </Field>
           <Field label="URL foto (upload dulu ke Imgur/ImgBB atau hosting gambar lain)">
@@ -119,14 +119,14 @@ export default function AdminPage() {
               required
               value={form.image_url}
               onChange={(e) => setForm({ ...form, image_url: e.target.value })}
-              className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+              className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
             />
           </Field>
           <Field label="Tag (pisahkan dengan koma, contoh: gantungan kunci, jujutsu kaisen, gojo)">
             <input
               value={form.tags}
               onChange={(e) => setForm({ ...form, tags: e.target.value })}
-              className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+              className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
             />
           </Field>
           <div className="grid grid-cols-2 gap-4">
@@ -135,14 +135,14 @@ export default function AdminPage() {
                 type="number"
                 value={form.price}
                 onChange={(e) => setForm({ ...form, price: e.target.value })}
-                className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+                className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
               />
             </Field>
             <Field label="Status stok">
               <select
                 value={form.stock_status}
                 onChange={(e) => setForm({ ...form, stock_status: e.target.value })}
-                className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+                className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
               >
                 <option value="ready">Ready</option>
                 <option value="preorder">Pre-order</option>
@@ -154,7 +154,7 @@ export default function AdminPage() {
             <input
               value={form.shopee_url}
               onChange={(e) => setForm({ ...form, shopee_url: e.target.value })}
-              className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi"
+              className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi"
             />
           </Field>
 
@@ -172,7 +172,7 @@ export default function AdminPage() {
                 setForm(emptyForm);
                 setStatus(null);
               }}
-              className="focus-ring rounded-sm border border-white/15 px-6 py-3 text-sm text-washiDim transition-colors hover:text-washi"
+              className="focus-ring rounded-sm border border-vermilion/20 px-6 py-3 text-sm text-washiDim transition-colors hover:text-washi"
             >
               Batal
             </button>

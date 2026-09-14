@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { computeImageEmbeddingCLIP } from "@/lib/clip";
+import { computeImageEmbeddingDINO } from "@/lib/dino";
 import type { Product } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -35,11 +35,11 @@ export async function POST(req: NextRequest) {
     );
     const product = rows[0];
 
-    // Hitung embedding CLIP-nya buat fitur "cari pakai foto" gratis.
+    // Hitung embedding DINOv2-nya buat fitur "cari pakai foto" gratis.
     // Kalau ini gagal (foto gak bisa diunduh, dll), produk tetap tersimpan —
     // tinggal jalankan `npm run embed:catalog` nanti buat susulan.
     try {
-      const embedding = await computeImageEmbeddingCLIP(body.image_url);
+      const embedding = await computeImageEmbeddingDINO(body.image_url);
       await query("update products set embedding = $1::jsonb where id = $2", [
         JSON.stringify(embedding),
         product.id

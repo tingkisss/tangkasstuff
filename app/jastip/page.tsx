@@ -51,7 +51,7 @@ export default function JastipPage() {
 
         <ol className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {steps.map((s) => (
-            <li key={s.n} className="rounded-sm border border-white/10 bg-shoji p-6">
+            <li key={s.n} className="rounded-sm border border-vermilion/15 bg-shoji p-6">
               <span className="font-mono text-xs text-gold">{s.n}</span>
               <h3 className="mt-2 font-display text-lg text-washi">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-washiDim">{s.desc}</p>

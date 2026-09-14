@@ -98,7 +98,7 @@ export default function ScanPage() {
         <div className="hairline mb-10 h-px w-full" />
 
         <div
-          className="focus-ring flex min-h-[16rem] cursor-pointer flex-col items-center justify-center gap-4 rounded-sm border-2 border-dashed border-white/15 bg-shoji p-8 text-center transition-colors hover:border-gold/50"
+          className="focus-ring flex min-h-[16rem] cursor-pointer flex-col items-center justify-center gap-4 rounded-sm border-2 border-dashed border-vermilion/20 bg-shoji p-8 text-center transition-colors hover:border-gold/50"
           onClick={() => inputRef.current?.click()}
           role="button"
           tabIndex={0}
@@ -152,7 +152,7 @@ export default function ScanPage() {
                 ))}
               </div>
             ) : (
-              <p className="rounded-sm border border-white/10 bg-shoji p-6 text-sm text-washiDim">
+              <p className="rounded-sm border border-vermilion/15 bg-shoji p-6 text-sm text-washiDim">
                 Barang ini kelihatannya belum ada stoknya. Mau kami titip beliin langsung dari Jepang?{" "}
                 <a href="/jastip" className="text-vermilion underline underline-offset-2">
                   Coba Jastip

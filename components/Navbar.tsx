@@ -14,7 +14,7 @@ export default function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-ink/80 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-vermilion/10 bg-ink/80 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <Link href="/" className="focus-ring flex items-center gap-3" onClick={() => setOpen(false)}>
           <span className="hanko flex h-8 w-8 shrink-0 items-center justify-center rounded font-display text-sm">
@@ -47,7 +47,7 @@ export default function Navbar() {
 
       {/* Dropdown menu mobile */}
       {open && (
-        <nav className="flex flex-col gap-1 border-t border-white/5 px-6 py-4 font-body text-sm text-washiDim sm:hidden">
+        <nav className="flex flex-col gap-1 border-t border-vermilion/10 px-6 py-4 font-body text-sm text-washiDim sm:hidden">
           {links.map((link) => (
             <Link
               key={link.href}

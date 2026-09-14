@@ -25,7 +25,7 @@ export default function KatalogBrowser({ products }: { products: Product[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Cari nama produk, judul anime, atau tag..."
-          className="focus-ring w-full rounded-sm border border-white/10 bg-shoji px-4 py-3 text-sm text-washi placeholder:text-washiDim/60"
+          className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji px-4 py-3 text-sm text-washi placeholder:text-washiDim/60"
         />
         <Link
           href="/katalog/scan"
@@ -36,7 +36,7 @@ export default function KatalogBrowser({ products }: { products: Product[] }) {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="rounded-sm border border-white/10 bg-shoji p-8 text-center text-sm text-washiDim">
+        <p className="rounded-sm border border-vermilion/15 bg-shoji p-8 text-center text-sm text-washiDim">
           Belum ada barang yang cocok dengan &ldquo;{query}&rdquo;. Coba kata kunci lain, atau titip lewat Jastip.
         </p>
       ) : (

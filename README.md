@@ -61,10 +61,11 @@ Fitur ini sekarang dua lapis:
 
 **Lapis gratis (default, selalu aktif, gak butuh API key apa pun)**
 Pakai [transformers.js](https://github.com/xenova/transformers.js) yang menjalankan model
-open-source **CLIP** langsung di server kamu sendiri. Cara kerjanya: tiap produk di
-katalog dihitung "ciri visual"-nya (embedding) sekali, lalu foto yang diupload pelanggan
-dibandingkan kemiripannya ke semua produk itu. Gak ada biaya per pemanggilan — cuma sekali
-download model (~150MB) yang otomatis di-cache saat pertama kali dipakai.
+open-source **DINOv2** (dari Meta AI, self-supervised — dilatih tanpa label maupun caption
+teks) langsung di server kamu sendiri. Cara kerjanya: tiap produk di katalog dihitung "ciri
+visual"-nya (embedding) sekali, lalu foto yang diupload pelanggan dibandingkan kemiripannya
+ke semua produk itu. Gak ada biaya per pemanggilan — cuma sekali download model (~91MB,
+versi quantized) yang otomatis di-cache saat pertama kali dipakai.
 
 Supaya ini jalan, setiap produk di katalog perlu punya kolom `embedding` terisi:
 - Produk yang ditambah lewat `/admin` otomatis dihitung embedding-nya.
@@ -92,7 +93,7 @@ gratis di atasnya tetap jalan normal.
    saldo di console, lalu kepotong sesuai token yang benar-benar dipakai. Model yang
    dipakai di sini (Sonnet 5) estimasinya sekitar Rp80–150 per satu kali scan foto.
 
-> Catatan deploy: model CLIP butuh waktu proses lumayan (terutama pertama kali). Kalau
+> Catatan deploy: model DINOv2 butuh waktu proses lumayan (terutama pertama kali). Kalau
 > deploy ke platform serverless dengan batas waktu eksekusi pendek (misalnya Vercel Hobby),
 > pertimbangkan naik ke plan yang izinkan durasi fungsi lebih panjang, atau deploy ke
 > server yang nyala terus (VPS, Railway, Render) supaya model-nya gak perlu dimuat ulang
@@ -147,7 +148,7 @@ Variables** di dashboard Vercel, lalu deploy.
 
 **Langkah 1 — gratis, otomatis jalan duluan:**
 1. Pelanggan upload foto di `/katalog/scan`.
-2. Foto dikirim ke `/api/embed-similarity`, dihitung embedding CLIP-nya (gratis, lokal).
+2. Foto dikirim ke `/api/embed-similarity`, dihitung embedding DINOv2-nya (gratis, lokal).
 3. Dibandingkan ke embedding semua produk di katalog, diurutkan dari yang paling mirip,
    cuma yang skor kemiripannya di atas ambang batas yang ditampilkan.
 4. Kalau gak ada yang mirip, pelanggan diarahkan ke halaman Jastip.
@@ -161,8 +162,8 @@ Variables** di dashboard Vercel, lalu deploy.
 
 ## Kustomisasi desain
 
-Warna, font, dan komponen "hanko stamp" (stempel merah khas Jepang yang jadi ciri
-khas visual web ini) ada di:
+Warna, font, dan komponen "hanko stamp" (stempel bertema sakura pink khas Jepang yang
+jadi ciri khas visual web ini) ada di:
 - `tailwind.config.ts` — semua token warna (`ink`, `vermilion`, `gold`, dst.)
 - `app/layout.tsx` — pemilihan font (Zen Old Mincho buat judul, Zen Kaku Gothic New
   buat isi)

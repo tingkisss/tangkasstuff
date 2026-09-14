@@ -96,7 +96,7 @@ function DoorPanel({
   return (
     <Link
       href={href}
-      className="focus-ring group relative flex h-80 flex-col justify-end overflow-hidden rounded-sm border border-white/10 p-8 transition-all duration-500 hover:border-vermilion/60 sm:h-[26rem]"
+      className="focus-ring group relative flex h-80 flex-col justify-end overflow-hidden rounded-sm border border-vermilion/15 p-8 transition-all duration-500 hover:border-vermilion/60 sm:h-[26rem]"
     >
       {/* Background Image dengan efek hover zoom */}
       <Image
@@ -123,8 +123,8 @@ function DoorPanel({
       {/* Konten teks */}
       <div className="relative z-20">
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">{title}</p>
-        <h2 className="mt-2 font-display text-2xl text-washi">{desc}</h2>
-        <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-washiDim transition-colors group-hover:text-vermilion">
+        <h2 className="mt-2 font-display text-2xl text-white">{desc}</h2>
+        <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-white/70 transition-colors group-hover:text-vermilion">
           {cta} →
         </span>
       </div>

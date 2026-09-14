@@ -13,7 +13,7 @@ export default function TaxInfoCard() {
         Perkiraan biaya pajak/bea cukai per jenis barang, di luar hitungan kalkulator di atas.
         Dibayar saat barang tiba di Admin.
       </p>
-      <ul className="mt-4 divide-y divide-white/5">
+      <ul className="mt-4 divide-y divide-vermilion/10">
         {taxRanges.map((t) => (
           <li key={t.category} className="flex items-center justify-between gap-4 py-2.5 text-sm">
             <span className="text-washi">{t.category}</span>

@@ -24,7 +24,7 @@ export default function YenCalculator() {
   }, [yen, yenInput]);
 
   return (
-    <div className="rounded-sm border border-white/10 bg-shoji p-6">
+    <div className="rounded-sm border border-vermilion/15 bg-shoji p-6">
       <p className="font-mono text-xs uppercase tracking-widest text-gold">Kalkulator Estimasi Harga</p>
       <p className="mt-2 text-sm text-washiDim">
         Masukkan harga barang dalam Yen (¥), kami hitungkan estimasi harga dalam Rupiah pakai rate
@@ -39,7 +39,7 @@ export default function YenCalculator() {
           value={yenInput}
           onChange={(e) => setYenInput(e.target.value)}
           placeholder="contoh: 3000"
-          className="focus-ring w-full rounded-sm border border-white/10 bg-shoji2 px-4 py-3 text-sm text-washi placeholder:text-washiDim/50"
+          className="focus-ring w-full rounded-sm border border-vermilion/15 bg-shoji2 px-4 py-3 text-sm text-washi placeholder:text-washiDim/50"
         />
       </div>
 

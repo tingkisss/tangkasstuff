@@ -7,39 +7,39 @@ html {
 }
 
 body {
-  background-color: #0b0b0d;
+  background-color: #fff5f8;
   background-image:
-    radial-gradient(ellipse 70% 50% at 15% -10%, rgba(200, 54, 42, 0.16), transparent 60%),
-    radial-gradient(ellipse 60% 45% at 100% 10%, rgba(201, 161, 90, 0.12), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(200, 54, 42, 0.08), transparent 60%);
+    radial-gradient(ellipse 70% 50% at 15% -10%, rgba(224, 85, 155, 0.18), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 100% 10%, rgba(184, 134, 58, 0.12), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 100%, rgba(224, 85, 155, 0.12), transparent 60%);
   background-attachment: fixed;
-  color: #ede7dd;
+  color: #3d1b2e;
 }
 
 ::selection {
-  background: #c8362a;
-  color: #ede7dd;
+  background: #e0559b;
+  color: #fff5f8;
 }
 
 .washi-grain {
-  background-image: radial-gradient(circle at 1px 1px, rgba(237, 231, 221, 0.05) 1px, transparent 0);
+  background-image: radial-gradient(circle at 1px 1px, rgba(61, 27, 46, 0.05) 1px, transparent 0);
   background-size: 22px 22px;
 }
 
 .hairline {
-  background: linear-gradient(to right, transparent, rgba(201, 161, 90, 0.5), transparent);
+  background: linear-gradient(to right, transparent, rgba(184, 134, 58, 0.45), transparent);
 }
 
 .hairline-v {
-  background: linear-gradient(to bottom, transparent, rgba(201, 161, 90, 0.4), transparent);
+  background: linear-gradient(to bottom, transparent, rgba(184, 134, 58, 0.35), transparent);
 }
 
 /* Hanko seal signature mark */
 .hanko {
-  border: 2.5px solid #c8362a;
-  color: #c8362a;
+  border: 2.5px solid #e0559b;
+  color: #e0559b;
   border-radius: 6px;
-  box-shadow: inset 0 0 0 1px rgba(200, 54, 42, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(224, 85, 155, 0.35);
 }
 
 .hanko-crack::before {
@@ -48,18 +48,18 @@ body {
   inset: -2px;
   border-radius: 8px;
   background:
-    linear-gradient(115deg, transparent 46%, rgba(11,11,13,0.9) 47%, transparent 48%),
-    linear-gradient(20deg, transparent 70%, rgba(11,11,13,0.85) 71%, transparent 72%);
+    linear-gradient(115deg, transparent 46%, rgba(255, 245, 248, 0.92) 47%, transparent 48%),
+    linear-gradient(20deg, transparent 70%, rgba(255, 245, 248, 0.88) 71%, transparent 72%);
   pointer-events: none;
 }
 
 /* Blob cahaya lembut buat dekorasi, dipakai sebagai <div> absolute + blur */
 .glow-vermilion {
-  background: radial-gradient(circle, rgba(200, 54, 42, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(224, 85, 155, 0.3), transparent 70%);
   filter: blur(60px);
 }
 .glow-gold {
-  background: radial-gradient(circle, rgba(201, 161, 90, 0.28), transparent 70%);
+  background: radial-gradient(circle, rgba(184, 134, 58, 0.22), transparent 70%);
   filter: blur(70px);
 }
 
@@ -67,8 +67,8 @@ body {
 .pattern-diagonal {
   background-image: repeating-linear-gradient(
     45deg,
-    rgba(201, 161, 90, 0.05) 0,
-    rgba(201, 161, 90, 0.05) 1px,
+    rgba(184, 134, 58, 0.06) 0,
+    rgba(184, 134, 58, 0.06) 1px,
     transparent 1px,
     transparent 14px
   );
@@ -84,6 +84,6 @@ body {
 }
 
 .focus-ring:focus-visible {
-  outline: 2px solid #c9a15a;
+  outline: 2px solid #b8863a;
   outline-offset: 3px;
 }

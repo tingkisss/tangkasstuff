@@ -4,7 +4,7 @@ const SHOPEE_URL = process.env.NEXT_PUBLIC_SHOPEE_URL ?? "https://shopee.co.id/t
 
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-white/5">
+    <footer className="mt-24 border-t border-vermilion/10">
       <div className="mx-auto max-w-6xl px-6 py-10">
         <div className="hairline mb-8 h-px w-full" />
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
