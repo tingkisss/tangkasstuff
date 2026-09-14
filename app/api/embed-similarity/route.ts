@@ -8,7 +8,7 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // Di bawah skor ini, kita anggap "kayaknya bukan barang yang sama" dan gak ditampilkan.
-const SIMILARITY_THRESHOLD = 0.75;
+const SIMILARITY_THRESHOLD = 0.79;
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
