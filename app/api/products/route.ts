@@ -5,20 +5,32 @@ import type { Product } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
+export const dynamic = "force-dynamic";
+
+export async function GET() {
+  try {
+    const res = await query<Product>("SELECT * FROM products ORDER BY id DESC");
+    const rows = Array.isArray(res) ? res : (res?.rows || []);
+    return NextResponse.json(rows);
+  } catch (error) {
+    console.error("Error fetching products:", error);
+    return NextResponse.json({ error: "Database error" }, { status: 500 });
+  }
+}
 
 export async function POST(req: NextRequest) {
-  const token = req.headers.get("x-admin-token");
-  if (!token || token !== process.env.ADMIN_API_TOKEN) {
-    return NextResponse.json({ error: "Token admin salah atau belum diset." }, { status: 401 });
-  }
+  // Pengecekan token static lama dihapus karena login admin sudah verifikasi via tabel admins
 
   const body = await req.json().catch(() => null);
   if (!body?.name || !body?.anime || !body?.image_url) {
-    return NextResponse.json({ error: "Nama, judul anime, dan URL foto wajib diisi." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Nama, judul anime, dan URL foto wajib diisi." },
+      { status: 400 }
+    );
   }
 
   try {
-    const rows = await query<Product>(
+    const res = await query<Product>(
       `insert into products (name, anime, description, image_url, tags, price, shopee_url, stock_status)
        values ($1, $2, $3, $4, $5, $6, $7, $8)
        returning *`,
@@ -33,11 +45,15 @@ export async function POST(req: NextRequest) {
         body.stock_status ?? "ready"
       ]
     );
+
+    const rows = Array.isArray(res) ? res : (res?.rows || []);
     const product = rows[0];
 
-    // Hitung embedding CLIP-nya buat fitur "cari pakai foto" gratis.
-    // Kalau ini gagal (foto gak bisa diunduh, dll), produk tetap tersimpan —
-    // tinggal jalankan `npm run embed:catalog` nanti buat susulan.
+    if (!product) {
+      throw new Error("Gagal mendapatkan data produk setelah disimpan.");
+    }
+
+    // Hitung embedding CLIP otomatis untuk fitur "Cari Pakai Foto" (Visual Search Skripsi)
     try {
       const embedding = await computeImageEmbeddingCLIP(body.image_url);
       await query("update products set embedding = $1::jsonb where id = $2", [
@@ -50,6 +66,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ product });
   } catch (err) {
+    console.error("Error saving product:", err);
     return NextResponse.json(
       { error: err instanceof Error ? err.message : "Gagal menyimpan produk." },
       { status: 500 }

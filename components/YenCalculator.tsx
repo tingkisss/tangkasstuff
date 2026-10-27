@@ -1,62 +1,57 @@
-"use client";
-
-import { useMemo, useState } from "react";
-
-// Rate toko: 1 Yen dikonversi jadi Rupiah dikali angka ini, lalu ditambah biaya jasa tetap.
-// Bisa diubah lewat env NEXT_PUBLIC_JASTIP_RATE_PER_YEN / NEXT_PUBLIC_JASTIP_FLAT_FEE
-// tanpa perlu edit kode.
-const RATE_PER_YEN = Number(process.env.NEXT_PUBLIC_JASTIP_RATE_PER_YEN ?? 125);
-const FLAT_FEE_IDR = Number(process.env.NEXT_PUBLIC_JASTIP_FLAT_FEE ?? 22000);
-
-function formatIDR(value: number) {
-  return `Rp${Math.round(value).toLocaleString("id-ID")}`;
-}
+'use client';
+import { useState, useEffect } from 'react';
 
 export default function YenCalculator() {
-  const [yenInput, setYenInput] = useState("");
+  const [yenInput, setYenInput] = useState<number | ''>('');
+  const [rate, setRate] = useState(125);
+  const [fee, setFee] = useState(22000);
+  const [total, setTotal] = useState<number | null>(null);
 
-  const yen = Number(yenInput.replace(/[^0-9.]/g, ""));
-  const result = useMemo(() => {
-    if (!yenInput || Number.isNaN(yen) || yen <= 0) return null;
-    const converted = yen * RATE_PER_YEN;
-    const total = converted + FLAT_FEE_IDR;
-    return { converted, total };
-  }, [yen, yenInput]);
+  useEffect(() => {
+    // Tambahan { cache: 'no-store' } agar Next.js tidak menyimpan data lama
+    fetch('/api/settings', { cache: 'no-store' })
+      .then(res => res.json())
+      .then(data => {
+        // Mencegah error 'undefined' jika koneksi DB bermasalah
+        if (data && data.jpy_rate !== undefined) setRate(Number(data.jpy_rate));
+        if (data && data.jastip_fee !== undefined) setFee(Number(data.jastip_fee));
+      })
+      .catch(err => console.error('Gagal mengambil pengaturan kalkulator:', err));
+  }, []);
+
+  const calculateTotal = () => {
+    if (yenInput) {
+      setTotal((Number(yenInput) * rate) + fee);
+    }
+  };
 
   return (
-    <div className="rounded-sm border border-white/10 bg-shoji p-6">
-      <p className="font-mono text-xs uppercase tracking-widest text-gold">Kalkulator Estimasi Harga</p>
-      <p className="mt-2 text-sm text-washiDim">
-        Masukkan harga barang dalam Yen (¥), kami hitungkan estimasi harga dalam Rupiah pakai rate
-        toko kami: ¥1 = Rp{RATE_PER_YEN} + biaya jasa Rp{FLAT_FEE_IDR.toLocaleString("id-ID")}.
-      </p>
-
-      <div className="mt-4 flex items-center gap-3">
-        <span className="font-mono text-lg text-washi">¥</span>
-        <input
-          type="text"
-          inputMode="decimal"
+    <div className="p-4 border border-pink-200 rounded-lg bg-pink-50">
+      <h3 className="font-bold text-pink-700 mb-2">Kalkulator Jastip</h3>
+      <div className="flex gap-2">
+        <input 
+          type="number" 
+          placeholder="Harga barang (¥)"
           value={yenInput}
-          onChange={(e) => setYenInput(e.target.value)}
-          placeholder="contoh: 3000"
-          className="focus-ring w-full rounded-sm border border-white/10 bg-shoji2 px-4 py-3 text-sm text-washi placeholder:text-washiDim/50"
+          onChange={(e) => setYenInput(e.target.value ? Number(e.target.value) : '')}
+          className="border p-2 rounded w-full"
         />
+        <button 
+          onClick={calculateTotal}
+          className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600"
+        >
+          Hitung
+        </button>
       </div>
-
-      {result && (
-        <div className="mt-4 rounded-sm border border-gold/30 bg-shoji2 p-4 font-mono text-sm text-washi">
-          <p className="text-washiDim">
-            ¥{yen.toLocaleString("ja-JP")} × Rp{RATE_PER_YEN} = {formatIDR(result.converted)}
-          </p>
-          <p className="text-washiDim">+ Biaya jasa titip = {formatIDR(FLAT_FEE_IDR)}</p>
-          <div className="hairline my-2 h-px w-full" />
-          <p className="text-base text-gold">Estimasi total = {formatIDR(result.total)}</p>
+      
+      {total !== null && (
+        <div className="mt-3 text-lg font-semibold text-gray-800">
+          Estimasi: Rp {total.toLocaleString('id-ID')}
         </div>
       )}
-
-      <p className="mt-3 text-xs text-washiDim">
-        Estimasi ini belum termasuk ongkos kirim domestik &amp; tax bea cukai (lihat info di bawah).
-        Rate bisa berubah sewaktu-waktu mengikuti kurs asli — konfirmasi harga final tetap lewat WhatsApp.
+      
+      <p className="text-xs text-gray-500 mt-2">
+        *Berdasarkan kurs (¥1 = Rp {rate}) dan fee jastip Rp {Number(fee || 0).toLocaleString('id-ID')}
       </p>
     </div>
   );

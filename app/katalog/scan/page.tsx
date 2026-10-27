@@ -162,13 +162,12 @@ export default function ScanPage() {
             )}
 
             <p className="mt-8 text-xs text-washiDim">
-              Pencarian di atas cuma membandingkan bentuk &amp; warna foto, belum tentu tau nama animenya kalau
-              belum ada barang mirip di katalog kami.
+              Pencarian di atas cuma membandingkan bentuk &amp; warna foto, hasil belum tentu akurat sepenuhnya
             </p>
 
             {/* --- Fitur identifikasi berbayar (Anthropic API) — non-aktif dulu ---
             <div className="mt-8 rounded-sm border border-gold/30 bg-shoji p-6">
-              <p className="text-sm text-washi">
+              <p className="text-sm text-washi">]
                 Pencarian di atas cuma membandingkan bentuk &amp; warna foto, belum tentu tau nama animenya kalau
                 belum ada barang mirip di katalog kami.
               </p>
