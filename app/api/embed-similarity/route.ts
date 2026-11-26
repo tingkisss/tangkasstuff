@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import { computeImageEmbeddingCLIP, cosineSimilarity } from "@/lib/clip";
+import { logSearch } from "@/lib/searchLog"; // BARU
 import type { Product } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -8,9 +9,11 @@ export const runtime = "nodejs";
 export const maxDuration = 60;
 
 // Di bawah skor ini, kita anggap "kayaknya bukan barang yang sama" dan gak ditampilkan.
-const SIMILARITY_THRESHOLD = 0.79;
+const SIMILARITY_THRESHOLD = 0.80;
 
 export async function POST(req: NextRequest) {
+  const t0 = performance.now(); // BARU: mulai hitung waktu pencarian
+
   const body = await req.json().catch(() => null);
   const imageBase64: string | undefined = body?.imageBase64;
   const mediaType: string | undefined = body?.mediaType;
@@ -49,6 +52,12 @@ export async function POST(req: NextRequest) {
     .filter((r) => r.score >= SIMILARITY_THRESHOLD)
     .sort((a, b) => b.score - a.score)
     .slice(0, 12);
+
+  // BARU: catat pencarian ini ke search_logs dan search_results
+  await logSearch(
+    scored.map((r) => ({ id: String(r.product.id), score: r.score })),
+    performance.now() - t0
+  );
 
   return NextResponse.json({
     matches: scored.map((r) => ({ ...r.product, similarity: Math.round(r.score * 100) }))

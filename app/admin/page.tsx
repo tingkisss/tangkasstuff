@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BackLink from "@/components/BackLink";
+import AdminStats from "@/components/AdminStats";
 
 interface Product {
   id: number;
@@ -313,6 +314,11 @@ export default function AdminPage() {
             </div>
           )}
         </section>
+
+        <hr className="my-10 border-white/10" />
+
+        {/* SECTION: RANKING PENCARIAN PRODUK */}
+        <AdminStats />
 
         <hr className="my-10 border-white/10" />
 

@@ -106,9 +106,9 @@ function DoorPanel({
         className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
       />
 
-      {/* Gradient Overlay, dikasih tint hangat biar nyambung sama tema */}
+      {/* 1. Gradient Overlay: Dibuat lebih gelap dan tinggi agar teks kontras */}
       <div
-        className="absolute inset-0 bg-gradient-to-t from-black/90 via-vermilionDark/15 to-transparent transition-opacity duration-500 group-hover:opacity-80"
+        className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/10 transition-opacity duration-500 group-hover:opacity-80"
         aria-hidden="true"
       />
 
@@ -122,9 +122,18 @@ function DoorPanel({
 
       {/* Konten teks */}
       <div className="relative z-20">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-gold">{title}</p>
-        <h2 className="mt-2 font-display text-2xl text-washi">{desc}</h2>
-        <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-washiDim transition-colors group-hover:text-vermilion">
+        {/* 2. Title: Dipastikan berwarna kuning/emas dan diberi bayangan */}
+        <p className="font-mono text-xs uppercase tracking-[0.3em] text-yellow-400 drop-shadow-md">
+          {title}
+        </p>
+        
+        {/* 3. Deskripsi: Ukuran teks disesuaikan ke text-lg, warna putih, dengan bayangan */}
+        <h2 className="mt-2 font-display text-lg text-white drop-shadow-md sm:text-xl">
+          {desc}
+        </h2>
+        
+        {/* 4. CTA: Warna diubah ke abu-abu terang agar lebih kontras dari sebelumnya */}
+        <span className="mt-6 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-gray-200 transition-colors drop-shadow-md group-hover:text-vermilion">
           {cta} →
         </span>
       </div>

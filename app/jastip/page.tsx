@@ -6,7 +6,7 @@ import YenCalculator from "@/components/YenCalculator";
 import TaxInfoCard from "@/components/TaxInfoCard";
 
 const WHATSAPP_URL = process.env.NEXT_PUBLIC_WHATSAPP_URL ?? "https://wa.me/6285174070806";
-const RECAP_SHEET_URL = process.env.NEXT_PUBLIC_RECAP_SHEET_URL ?? "https://docs.google.com/spreadsheets/d/1xwaBbyjz7xY2aV7cMNPdPdWGNoatWz9DAxWkNTsiRRI/edit?usp=sharing";
+const RECAP_SHEET_URL = process.env.NEXT_PUBLIC_RECAP_SHEET_URL ?? "https://docs.google.com/spreadsheets/d/1yPbWxSfGQZFaHJkSGxTpuGCr-rXHKNLR/edit?usp=sharing&ouid=112915811579378267838&rtpof=true&sd=true";
 
 const steps = [
   {
